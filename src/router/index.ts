@@ -22,7 +22,26 @@ const router = createRouter({
       meta: { 
         requiresAuth: true 
       },
-      component: () => import('@/views/admin.vue')
+      
+      component: () => import('@/views/admin.vue'),
+      children : [
+        {
+          path: "home",
+          component: () => import('@/components/admin/home.vue')
+        },
+        {
+          path: "account",
+          component: () => import('@/components/admin/accout.vue')
+        },
+        {
+          path: "book",
+          component: () => import('@/components/admin/book.vue')
+        },
+        {
+          path: "borrow",
+          component: () => import('@/components/admin/borrow.vue')
+        }
+      ],
     },
     {
       path: "/:username",
