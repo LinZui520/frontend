@@ -1,4 +1,12 @@
 <template>
+  <div class="box">
+    <span class="item">查询书籍：</span>
+    <el-input v-model="input" placeholder="请输入书籍名称" class="item" />
+    <el-button type="primary" @click="searchBook" class="item">
+      确定
+    </el-button>
+  </div>
+  
   <el-table :data="reactiveBooks" style="width: 100%">
     <el-table-column prop="bookId" label="书籍编号" width="90" />
     <el-table-column prop="bookName" label="书籍名称" width="90" />
@@ -103,7 +111,7 @@
     {bookId: '7', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
     {bookId: '8', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
   ];
-  const reactiveBooks = reactive(books)
+  let reactiveBooks = reactive(books)
 
   const variable = reactive({
     bookId: '',
@@ -153,10 +161,19 @@
     remove.value = false
   }
   
+
+  const input = ref('')
+  const searchBook = () => {
+    reactiveBooks = reactive(books)
+    reactiveBooks = reactiveBooks.filter(item => 
+      item.bookName.indexOf(input.value) != -1
+    )
+    input.value = ''
+  }
 </script>
     
 <style scoped>
-.el-button--text {
+/* .el-button--text {
   margin-right: 15px;
 }
 .el-select {
@@ -164,6 +181,18 @@
 }
 .el-input {
   width: 300px;
+} */
+.box {
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.item {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 30px;
+  max-width: 200px;
 }
 .dialog-footer button:first-child {
   margin-right: 10px;
