@@ -2,7 +2,7 @@
   <el-container class="layout-container-demo">
     <el-container class="box">
 
-      <el-col :span="3" class="item" style="height: 300px">
+      <el-col :span="3" class="item" style="height: 100%">
         <h3 class="mb-2" style="text-align: center;">图书管理系统</h3>
         <el-menu
           default-active="1"
