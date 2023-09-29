@@ -61,9 +61,9 @@
     <span>确定删除该书籍的全部信息？</span>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="remove = false">Cancel</el-button>
+        <el-button @click="remove = false">取消</el-button>
         <el-button type="primary" @click="removeBook">
-          Confirm
+          确定
         </el-button>
       </span>
     </template>
