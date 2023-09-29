@@ -11,30 +11,53 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
+      meta: { 
+        requiresAuth: false
+      },
       component: () => import("@/views/login.vue")
     },
     {
       path: "/:username",
       name: "admin",
+      meta: { 
+        requiresAuth: true 
+      },
       component: () => import('@/views/admin.vue')
     },
     {
       path: "/:username",
       name: "reader",
+      meta: { 
+        requiresAuth: true 
+      },
       component: () => import('@/views/reader.vue')
     },
     {
       path: "/404",
-      name: "NotFound",
-      component: () => import('@/components/NotFound.vue')
+      name: "404",
+      meta: { 
+        requiresAuth: false
+      },
+      component: () => import('@/components/404.vue')
     },
-    // 所有未定义路由，全部重定向到404页
-    {
-        path: "/:pathMatch(.*)*",
-        redirect: "/404",
-    }
   ]
 })
 
 
 export default router
+
+
+// import useAccountStore from '@/store/modules/account'
+// const accountStore = useAccountStore()
+// router.beforeEach((to, from, next) => {
+//   if(to.meta.requiresAuth == true){
+//       if (accountStore.isLogin) {
+//           next() // 已登录
+//       } else {
+//           next({path:"/404"}) //跳到404页面
+//       }
+//   } else {
+      
+//       next() //放行
+//   }
+// })

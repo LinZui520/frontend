@@ -27,9 +27,10 @@
   import { ref } from 'vue';
   import { accountLogin } from '@/api/account';
   import { useRouter } from 'vue-router';
-
+  import useAccountStore from '@/store/modules/account';
   
   const router = useRouter();
+  const accountStore = useAccountStore();
   const username = ref('');
   const password = ref('');
   const userType = ref('reader'); // 默认选择普通用户
@@ -48,6 +49,9 @@
     // ).then(res => {
     //   console.log(res);
       // if (res.data == 'ok') {
+        accountStore.username = username.value;
+        accountStore.userType = userType.value;
+        accountStore.isLogin = true;
         if (userType.value == 'reader') {
           router.push({ name: "reader", params: { username: username.value } });
         } else {
