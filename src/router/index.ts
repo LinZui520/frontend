@@ -30,7 +30,7 @@ const router = createRouter({
     },
     // 所有未定义路由，全部重定向到404页
     {
-        path: "/:pathMatch(.*)",
+        path: "/:pathMatch(.*)*",
         redirect: "/404",
     }
   ]
