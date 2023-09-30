@@ -60,3 +60,17 @@ export const getReserve = () => request({
     url: '/admin/reserve/get',
     method: 'get',
 })
+
+
+//获取用户的总数量
+export const getUserNum = () => request({
+    url: '/admin/user/sum',
+    method: 'get',
+})
+
+
+//获取图书的总数量
+export const getBookNum = () => request({
+    url: '/admin/book/sum',
+    method: 'get',
+})
