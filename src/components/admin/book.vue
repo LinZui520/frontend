@@ -5,6 +5,7 @@
     <el-button type="primary" @click="searchBook" class="item">
       确定
     </el-button>
+    <el-button type="success" round @click="addWindow">添加图书</el-button>
   </div>
   
   <el-table :data="reactiveBooks.data" style="width: 100%">
@@ -17,9 +18,9 @@
     <el-table-column prop="category" label="分类" width="90" />
     <el-table-column fixed="right" label="操作" width="180">
       <template #default="scope">
-        <el-button line size="small" @click.prevent="editWindow(scope.$index)"
+        <el-button line size="small" :icon="Edit" @click.prevent="editWindow(scope.$index)"
           >编辑</el-button>
-        <el-button line size="small" @click.prevent="removeWindow(scope.$index)"
+        <el-button line size="small" :icon="Delete" @click.prevent="removeWindow(scope.$index)"
           >删除</el-button>
       </template>
     </el-table-column>
@@ -59,6 +60,40 @@
     </el-form>
   </el-dialog>
 
+  <el-dialog v-model="add" title="添加书籍信息" style="text-align: center;" draggable>
+    <el-form :model="variable">
+      <el-form-item label="书籍编号" :label-width="labelWidth">
+        <el-input v-model="variable.bookId" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="书籍名称" :label-width="labelWidth">
+        <el-input v-model="variable.bookName" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="作者" :label-width="labelWidth">
+        <el-input v-model="variable.author" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="出版社" :label-width="labelWidth">
+        <el-input v-model="variable.publish" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="价格" :label-width="labelWidth">
+        <el-input v-model="variable.price" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="库存" :label-width="labelWidth">
+        <el-input v-model="variable.stock" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="分类" :label-width="labelWidth">
+        <el-input v-model="variable.category" autocomplete="off" />
+      </el-form-item>
+      
+      <span class="dialog-footer">
+        <el-button @click="add = false">取消</el-button>
+        <el-button type="primary" @click="addNewBook">
+          确定
+        </el-button>
+      </span>
+    
+    </el-form>
+  </el-dialog>
+
 
   <el-dialog
     v-model="remove"
@@ -81,7 +116,12 @@
 <script setup lang="ts">
   import { ref,reactive, onMounted } from "vue";
   import { getBook } from '@/api/account'
-  import { deleteBook,updateBook } from '@/api/admin'
+  import { deleteBook,updateBook,addBook } from '@/api/admin'
+  import { ElMessage } from 'element-plus'
+  import {
+    Delete,
+    Edit,
+  } from '@element-plus/icons-vue'
 
   let books = [{
     bookId: '',
@@ -93,6 +133,18 @@
     category: ''
   }]
   let reactiveBooks = reactive({data: books})
+
+  const input = ref('')
+  const searchBook = () => {
+
+    reactiveBooks.data = reactive(books.filter(item => {
+      if (input.value == '') {
+        return item
+      }
+      return item.bookName.indexOf(input.value) != -1
+    }))
+    // input.value = ''
+  }
 
   const update = async () => {
     try {
@@ -117,10 +169,8 @@
   })
   const labelWidth = '140px'
   const edit = ref(false)
-  const editIndex = ref(-1)
   const editId = ref('')
   const editWindow = (index: number) => {
-    editIndex.value = index
     editId.value = reactiveBooks.data[index].bookId
     variable.bookId = reactiveBooks.data[index].bookId
     variable.bookName = reactiveBooks.data[index].bookName
@@ -142,11 +192,45 @@
       variable.category).then(res => {
       console.log(res)
       update()
+      ElMessage('修改成功')
     }).catch(err => {
       console.log(err)
+      ElMessage('修改失败')
     })
     edit.value = false
   }
+
+
+  const add = ref(false)
+  const addWindow = () => {
+    variable.bookId = ''
+    variable.bookName = ''
+    variable.author = ''
+    variable.publish = ''
+    variable.price = ''
+    variable.stock = ''
+    variable.category = ''
+    add.value = true
+  }
+  const addNewBook = () => {
+    addBook(Number(variable.bookId), 
+      variable.bookName,
+      variable.author,
+      variable.publish,
+      Number(variable.price),
+      Number(variable.stock),
+      variable.category).then(res => {
+      console.log(res)
+      update()
+      ElMessage('添加成功')
+    }).catch(err => {
+      console.log(err)
+      ElMessage('添加失败')
+    })
+    add.value = false
+  }
+
+
 
   const remove = ref(false)
   const removeIndex = ref(-1)
@@ -160,25 +244,16 @@
     deleteBook(Number(removeId.value)).then(res => {
       console.log(res)
       update()
+      ElMessage('删除成功')
     }).catch(err => {
       console.log(err)
+      ElMessage('删除失败')
     })
     // reactiveBooks.data.splice(removeIndex.value, 1)
     remove.value = false
   }
   
 
-  const input = ref('')
-  const searchBook = () => {
-
-    reactiveBooks.data = reactive(books.filter(item => {
-      if (input.value == '') {
-        return item
-      }
-      return item.bookName.indexOf(input.value) != -1
-    }))
-    // input.value = ''
-  }
 </script>
     
 <style scoped>

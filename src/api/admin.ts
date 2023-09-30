@@ -40,6 +40,7 @@ export const updateBook = (bookOldID: number, bookId: number, bookname: string, 
     url: '/book/update',
     method: 'post',
     data: {
+        bookOldID,
         bookId,
         bookname,
         author,
