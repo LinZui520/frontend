@@ -36,12 +36,27 @@
         </span>
       </template>
 
-      Config
+      <el-table :data="admins.data" style="width: 100%">
+        <el-table-column prop="adminNumber" label="工号" width="90" />
+        <el-table-column prop="name" label="姓名" width="90" />
+        <el-table-column prop="age" label="年龄" width="90" />
+        <el-table-column prop="sex" label="性别" width="90" />
+        <el-table-column prop="phone" label="联系方式" width="90" />
+        <el-table-column prop="id" label="身份证号" width="90" />
+        <el-table-column fixed="right" label="操作" width="180">
+          <template #default="scope">
+            <el-button line size="small" :icon="Edit" disabled
+              >编辑</el-button>
+            <el-button line size="small" :icon="Delete" disabled
+              >删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table> 
 
     </el-tab-pane>
   </el-tabs>
 
-  <el-dialog v-model="edit" title="修改书籍信息" style="text-align: center;" draggable>
+  <el-dialog v-model="edit" title="修改用户信息" style="text-align: center;" draggable>
     <el-form :model="variable">
       <el-form-item label="学号" :label-width="labelWidth">
         <el-input v-model="variable.userNumber" autocomplete="off" />
@@ -60,9 +75,6 @@
       </el-form-item>
       <el-form-item label="联系方式" :label-width="labelWidth">
         <el-input v-model="variable.phone" autocomplete="off" />
-      </el-form-item>
-      <el-form-item label="身份证号" :label-width="labelWidth">
-        <el-input v-model="variable.id" autocomplete="off" />
       </el-form-item>
       
       <span class="dialog-footer">
@@ -99,7 +111,7 @@
   import { Delete,Edit, } from '@element-plus/icons-vue'
   import { deleteUser,updateUser } from '@/api/reader'
   import { ElMessage } from 'element-plus'
-
+  import { getAdmin } from '@/api/admin'
 
   let users = [{
     userNumber: '',
@@ -111,11 +123,19 @@
     id: ''
   }]
   let reactiveUsers = reactive({data: users})
-
+  const admins = reactive({data: [{
+    adminNumber: '',
+    name: '',
+    age: '',
+    sex: '',
+    phone: '',
+    id: ''
+  }]})
   const update = async () => {
     try {
       users = (await getUser()).data
       reactiveUsers.data = users
+      admins.data = (await getAdmin()).data
     } catch(err) {
       console.log(err)
     }
