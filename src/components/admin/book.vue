@@ -170,6 +170,13 @@
     edit.value = true
   }
   const editBook = () => {
+    if (variable.bookName == '' || variable.author == '' || 
+      variable.publish == '' || variable.price == '' || 
+      variable.stock == '' || variable.category == ''
+    ) {
+      ElMessage.error('请填写完整信息')
+      return
+    }
     updateBook(Number(editId.value),
       variable.bookName,
       variable.author,
@@ -200,6 +207,13 @@
     add.value = true
   }
   const addNewBook = () => {
+    if (variable.bookName == '' || variable.author == '' || 
+      variable.publish == '' || variable.price == '' || 
+      variable.stock == '' || variable.category == ''
+    ) {
+      ElMessage.error('请填写完整信息')
+      return
+    }
     addBook(variable.bookName,
       variable.author,
       variable.publish,

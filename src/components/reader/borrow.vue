@@ -104,6 +104,10 @@
     borrow.value = true
   }
   const borrowBooks = () => {
+    if (variable.borrowNum == '' || variable.borrowDays == '') {
+      ElMessage.error('请填写借阅数量和借阅天数')
+      return
+    }
     borrowBook(accountStore.username, 
       Number(borrowId.value), 
       Number(variable.borrowNum), 

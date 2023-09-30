@@ -167,6 +167,13 @@
     edit.value = true
   }
   const editUser = () => {
+    if (variable.value.userNumber == '' || variable.value.name == '' || variable.value.age == '' || 
+      variable.value.sex == '' || variable.value.address == '' || 
+      variable.value.phone == '' || variable.value.id == ''
+    ) {
+      ElMessage.error('请填写完整信息')
+      return
+    }
     updateUser(
       variable.value.userNumber,
       variable.value.name,
