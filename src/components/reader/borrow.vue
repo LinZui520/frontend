@@ -109,8 +109,12 @@
       Number(variable.borrowNum), 
       Number(variable.borrowDays)
     ).then(res => {
-      ElMessage.success('借阅成功')
-      update()
+      if (res.data == 'ok'){
+        ElMessage.success('借阅成功')
+        update()
+      } else {
+        ElMessage.error('借阅失败,库存不足')
+      }
     }).catch(err => {
       ElMessage.error('借阅失败')
     })

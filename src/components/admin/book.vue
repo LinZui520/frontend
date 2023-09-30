@@ -38,10 +38,10 @@
         <el-input v-model="variable.publish" autocomplete="off" />
       </el-form-item>
       <el-form-item label="价格" :label-width="labelWidth">
-        <el-input v-model="variable.price" autocomplete="off" />
+        <el-input type="number" v-model="variable.price" autocomplete="off" />
       </el-form-item>
       <el-form-item label="库存" :label-width="labelWidth">
-        <el-input v-model="variable.stock" autocomplete="off" />
+        <el-input type="number" v-model="variable.stock" autocomplete="off" />
       </el-form-item>
       <el-form-item label="分类" :label-width="labelWidth">
         <el-input v-model="variable.category" autocomplete="off" />
@@ -69,10 +69,10 @@
         <el-input v-model="variable.publish" autocomplete="off" />
       </el-form-item>
       <el-form-item label="价格" :label-width="labelWidth">
-        <el-input v-model="variable.price" autocomplete="off" />
+        <el-input type="number" v-model="variable.price" autocomplete="off" />
       </el-form-item>
       <el-form-item label="数量" :label-width="labelWidth">
-        <el-input v-model="variable.stock" autocomplete="off" />
+        <el-input type="number" v-model="variable.stock" autocomplete="off" />
       </el-form-item>
       <el-form-item label="分类" :label-width="labelWidth">
         <el-input v-model="variable.category" autocomplete="off" />
