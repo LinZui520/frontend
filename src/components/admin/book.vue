@@ -7,7 +7,7 @@
     </el-button>
   </div>
   
-  <el-table :data="reactiveBooks" style="width: 100%">
+  <el-table :data="reactiveBooks.data" style="width: 100%">
     <el-table-column prop="bookId" label="书籍编号" width="90" />
     <el-table-column prop="bookName" label="书籍名称" width="90" />
     <el-table-column prop="author" label="作者" width="90" />
@@ -79,39 +79,31 @@
 </template>
   
 <script setup lang="ts">
-  import { ref,reactive } from "vue";
+  import { ref,reactive, onMounted } from "vue";
+  import { getBook } from '@/api/account'
 
-  const books = [
-    {bookId: '1', bookName: 'vue', author: '张三', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '2', bookName: 'java', author: '李四', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '3', bookName: 'python', author: '王五', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '4', bookName: 'c++', author: '赵六', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '5', bookName: 'c', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '6', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '7', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '8', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '9', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '10', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '1', bookName: 'vue', author: '张三', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '2', bookName: 'java', author: '李四', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '3', bookName: 'python', author: '王五', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '4', bookName: 'c++', author: '赵六', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '5', bookName: 'c', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '6', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '7', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '8', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '9', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '10', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '1', bookName: 'vue', author: '张三', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '2', bookName: 'java', author: '李四', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '3', bookName: 'python', author: '王五', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '4', bookName: 'c++', author: '赵六', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '5', bookName: 'c', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '6', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '7', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-    {bookId: '8', bookName: 'c#', author: '田七', publish: '清华大学出版社', price: '100', stock: '100', category: '计算机'},
-  ];
-  let reactiveBooks = reactive(books)
+  let books = [{
+    bookId: '',
+    bookName: '',
+    author: '',
+    publish: '',
+    price: '',
+    stock: '',
+    category: ''
+  }]
+  let reactiveBooks = reactive({data: books})
+
+  const updateBook = async () => {
+    try {
+      books = (await getBook()).data
+      reactiveBooks.data = books
+    } catch(err) {
+      
+    }
+  }
+
+  updateBook()
+
 
   const variable = reactive({
     bookId: '',
@@ -127,48 +119,57 @@
   const editIndex = ref(-1)
 
   const editWindow = (index: number) => {
-    console.log(reactiveBooks[index].bookId)
     editIndex.value = index
-    variable.bookId = reactiveBooks[index].bookId
-    variable.bookName = reactiveBooks[index].bookName
-    variable.author = reactiveBooks[index].author
-    variable.publish = reactiveBooks[index].publish
-    variable.price = reactiveBooks[index].price
-    variable.stock = reactiveBooks[index].stock
-    variable.category = reactiveBooks[index].category
+    variable.bookId = reactiveBooks.data[index].bookId
+    variable.bookName = reactiveBooks.data[index].bookName
+    variable.author = reactiveBooks.data[index].author
+    variable.publish = reactiveBooks.data[index].publish
+    variable.price = reactiveBooks.data[index].price
+    variable.stock = reactiveBooks.data[index].stock
+    variable.category = reactiveBooks.data[index].category
     edit.value = true
   }
   const editBook = () => {
-    reactiveBooks[editIndex.value].bookId = variable.bookId
-    reactiveBooks[editIndex.value].bookName = variable.bookName
-    reactiveBooks[editIndex.value].author = variable.author
-    reactiveBooks[editIndex.value].publish = variable.publish
-    reactiveBooks[editIndex.value].price = variable.price
-    reactiveBooks[editIndex.value].stock = variable.stock
-    reactiveBooks[editIndex.value].category = variable.category
+    reactiveBooks.data[editIndex.value].bookId = variable.bookId
+    reactiveBooks.data[editIndex.value].bookName = variable.bookName
+    reactiveBooks.data[editIndex.value].author = variable.author
+    reactiveBooks.data[editIndex.value].publish = variable.publish
+    reactiveBooks.data[editIndex.value].price = variable.price
+    reactiveBooks.data[editIndex.value].stock = variable.stock
+    reactiveBooks.data[editIndex.value].category = variable.category
+    
     edit.value = false
+    console.log(books)
+    console.log(reactiveBooks)
   }
 
   const remove = ref(false)
   const removeIndex = ref(-1)
   const removeWindow = (index: number) => {
-    console.log(reactiveBooks[index].bookId)
+    console.log(reactiveBooks.data[index].bookId)
     removeIndex.value = index
     remove.value = true
   }
   const removeBook = () => {
-    reactiveBooks.splice(removeIndex.value, 1)
+    reactiveBooks.data.splice(removeIndex.value, 1)
+    console.log(books)
+    console.log(reactiveBooks)
     remove.value = false
   }
   
 
   const input = ref('')
   const searchBook = () => {
-    reactiveBooks = reactive(books)
-    reactiveBooks = reactiveBooks.filter(item => 
-      item.bookName.indexOf(input.value) != -1
-    )
+
+    reactiveBooks.data = reactive(books.filter(item => {
+      if (input.value == '') {
+        return item
+      }
+      return item.bookName.indexOf(input.value) != -1
+    }))
     input.value = ''
+    console.log(books)
+    console.log(reactiveBooks)
   }
 </script>
     

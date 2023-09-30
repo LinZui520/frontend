@@ -10,13 +10,13 @@ export const adminCheck = (adminId: string) => request({
 })
 
 //添加图书
-export const addBook = (bookId: number, bookname: string, author: string, 
+export const addBook = (bookId: number, bookName: string, author: string, 
         publish: string, price: number, stock: number, category: string) => request({
     url: '/book/add',
     method: 'post',
     data: {
         bookId,
-        bookname,
+        bookName,
         author,
         publish,
         price,
