@@ -22,7 +22,7 @@ app.use(ElementPlus)
 app.mount('#app')
 
 
-//路由守卫 用于判断是否登录和跳转/404
+//路由守卫
 import useAccountStore from './store/modules/account'
 const accountStore = useAccountStore()
 
@@ -31,7 +31,7 @@ router.beforeEach((to, from, next) => {
         if (accountStore.isLogin) {
             next() // 已登录
         } else {
-            next({ path:"/404" }) //跳到404页面
+            next({ path:"/login" }) //跳到登陆页面
         }
     } else {
         next() //放行

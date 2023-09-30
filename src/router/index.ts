@@ -59,24 +59,11 @@ const router = createRouter({
       },
       component: () => import('@/components/404.vue')
     },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/404',
+    },
   ]
 })
 
-
 export default router
-
-
-// import useAccountStore from '@/store/modules/account'
-// const accountStore = useAccountStore()
-// router.beforeEach((to, from, next) => {
-//   if(to.meta.requiresAuth == true){
-//       if (accountStore.isLogin) {
-//           next() // 已登录
-//       } else {
-//           next({path:"/404"}) //跳到404页面
-//       }
-//   } else {
-      
-//       next() //放行
-//   }
-// })
