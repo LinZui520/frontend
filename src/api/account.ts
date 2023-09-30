@@ -10,3 +10,14 @@ export const accountLogin = (username: string, password: string, power: string) 
         power,
     },
 })
+
+//账户注册
+export const accountRegister = (id: string, username: string, password: string) => request({
+    url: '/account/register',
+    method: 'post',
+    data: {
+        id,
+        username,
+        password,
+    },
+})
