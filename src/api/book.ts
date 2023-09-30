@@ -51,3 +51,16 @@ export const getBookNum = () => request({
     url: '/book/sum',
     method: 'get',
 })
+
+
+//借阅书籍
+export const borrowBook = (username: string, bookID: number, num: number, days: number) => request({
+    url: '/book/borrow',
+    method: 'post',
+    data: {
+        bookID,
+        username,
+        num,
+        days,
+    },
+})

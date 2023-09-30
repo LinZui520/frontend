@@ -176,9 +176,9 @@
       variable.value.phone,
     ).then(res => {
       update()
-      ElMessage('修改成功')
+      ElMessage.success('修改成功')
     }).catch(err => {
-      ElMessage('修改失败')
+      ElMessage.error('修改失败')
     })
     edit.value = false
   }
@@ -193,9 +193,9 @@
   const removeUser = () => {
     deleteUser(removeId.value).then(res => {
       update()
-      ElMessage('删除成功')
+      ElMessage.success('删除成功')
     }).catch(err => {
-      ElMessage('删除失败')
+      ElMessage.error('删除失败')
     })
     remove.value = false
   }

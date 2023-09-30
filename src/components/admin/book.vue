@@ -180,10 +180,10 @@
     ).then(res => {
       console.log(res)
       update()
-      ElMessage('修改成功')
+      ElMessage.success('修改成功')
     }).catch(err => {
       console.log(err)
-      ElMessage('修改失败')
+      ElMessage.error('修改失败')
     })
     edit.value = false
   }
@@ -208,10 +208,10 @@
       variable.category).then(res => {
       console.log(res)
       update()
-      ElMessage('添加成功')
+      ElMessage.success('添加成功')
     }).catch(err => {
       console.log(err)
-      ElMessage('添加失败')
+      ElMessage.error('添加失败')
     })
     add.value = false
   }
@@ -227,9 +227,9 @@
   const removeBook = () => {
     deleteBook(Number(removeId.value)).then(res => {
       update()
-      ElMessage('删除成功')
+      ElMessage.success('删除成功')
     }).catch(err => {
-      ElMessage('删除失败')
+      ElMessage.error('删除失败')
     })
     // reactiveBooks.data.splice(removeIndex.value, 1)
     remove.value = false
