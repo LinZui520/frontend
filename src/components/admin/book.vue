@@ -81,6 +81,7 @@
 <script setup lang="ts">
   import { ref,reactive, onMounted } from "vue";
   import { getBook } from '@/api/account'
+  import { deleteBook,updateBook } from '@/api/admin'
 
   let books = [{
     bookId: '',
@@ -93,17 +94,17 @@
   }]
   let reactiveBooks = reactive({data: books})
 
-  const updateBook = async () => {
+  const update = async () => {
     try {
       books = (await getBook()).data
       reactiveBooks.data = books
+      searchBook()
     } catch(err) {
-      
+      console.log(err)
     }
   }
 
-  updateBook()
-
+  update()
 
   const variable = reactive({
     bookId: '',
@@ -117,9 +118,10 @@
   const labelWidth = '140px'
   const edit = ref(false)
   const editIndex = ref(-1)
-
+  const editId = ref('')
   const editWindow = (index: number) => {
     editIndex.value = index
+    editId.value = reactiveBooks.data[index].bookId
     variable.bookId = reactiveBooks.data[index].bookId
     variable.bookName = reactiveBooks.data[index].bookName
     variable.author = reactiveBooks.data[index].author
@@ -130,30 +132,38 @@
     edit.value = true
   }
   const editBook = () => {
-    reactiveBooks.data[editIndex.value].bookId = variable.bookId
-    reactiveBooks.data[editIndex.value].bookName = variable.bookName
-    reactiveBooks.data[editIndex.value].author = variable.author
-    reactiveBooks.data[editIndex.value].publish = variable.publish
-    reactiveBooks.data[editIndex.value].price = variable.price
-    reactiveBooks.data[editIndex.value].stock = variable.stock
-    reactiveBooks.data[editIndex.value].category = variable.category
-    
+    updateBook(Number(editId.value),
+      Number(variable.bookId), 
+      variable.bookName,
+      variable.author,
+      variable.publish,
+      Number(variable.price),
+      Number(variable.stock),
+      variable.category).then(res => {
+      console.log(res)
+      update()
+    }).catch(err => {
+      console.log(err)
+    })
     edit.value = false
-    console.log(books)
-    console.log(reactiveBooks)
   }
 
   const remove = ref(false)
   const removeIndex = ref(-1)
+  const removeId = ref('')
   const removeWindow = (index: number) => {
-    console.log(reactiveBooks.data[index].bookId)
+    removeId.value = reactiveBooks.data[index].bookId
     removeIndex.value = index
     remove.value = true
   }
   const removeBook = () => {
-    reactiveBooks.data.splice(removeIndex.value, 1)
-    console.log(books)
-    console.log(reactiveBooks)
+    deleteBook(Number(removeId.value)).then(res => {
+      console.log(res)
+      update()
+    }).catch(err => {
+      console.log(err)
+    })
+    // reactiveBooks.data.splice(removeIndex.value, 1)
     remove.value = false
   }
   
@@ -167,9 +177,7 @@
       }
       return item.bookName.indexOf(input.value) != -1
     }))
-    input.value = ''
-    console.log(books)
-    console.log(reactiveBooks)
+    // input.value = ''
   }
 </script>
     

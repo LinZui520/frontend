@@ -35,7 +35,7 @@ export const deleteBook = (bookId: number) => request({
 })
 
 //修改图书
-export const updateBook = (bookId: number, bookname: string, author: string, 
+export const updateBook = (bookOldID: number, bookId: number, bookname: string, author: string, 
         publish: string, price: number, stock: number, category: string) => request({
     url: '/book/update',
     method: 'post',
