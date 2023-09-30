@@ -10,12 +10,11 @@ export const adminCheck = (adminId: string) => request({
 })
 
 //添加图书
-export const addBook = (bookId: number, bookName: string, author: string, 
+export const addBook = (bookName: string, author: string, 
         publish: string, price: number, stock: number, category: string) => request({
     url: '/book/add',
     method: 'post',
     data: {
-        bookId,
         bookName,
         author,
         publish,
@@ -35,13 +34,12 @@ export const deleteBook = (bookId: number) => request({
 })
 
 //修改图书
-export const updateBook = (bookOldID: number, bookId: number, bookname: string, author: string, 
+export const updateBook = (bookOldID: number, bookname: string, author: string, 
         publish: string, price: number, stock: number, category: string) => request({
     url: '/book/update',
     method: 'post',
     data: {
         bookOldID,
-        bookId,
         bookname,
         author,
         publish,

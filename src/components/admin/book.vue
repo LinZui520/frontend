@@ -28,9 +28,9 @@
 
   <el-dialog v-model="edit" title="修改书籍信息" style="text-align: center;" draggable>
     <el-form :model="variable">
-      <el-form-item label="书籍编号" :label-width="labelWidth">
+      <!-- <el-form-item label="书籍编号" :label-width="labelWidth">
         <el-input v-model="variable.bookId" autocomplete="off" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="书籍名称" :label-width="labelWidth">
         <el-input v-model="variable.bookName" autocomplete="off" />
       </el-form-item>
@@ -62,9 +62,9 @@
 
   <el-dialog v-model="add" title="添加书籍信息" style="text-align: center;" draggable>
     <el-form :model="variable">
-      <el-form-item label="书籍编号" :label-width="labelWidth">
+      <!-- <el-form-item label="书籍编号" :label-width="labelWidth">
         <el-input v-model="variable.bookId" autocomplete="off" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="书籍名称" :label-width="labelWidth">
         <el-input v-model="variable.bookName" autocomplete="off" />
       </el-form-item>
@@ -77,7 +77,7 @@
       <el-form-item label="价格" :label-width="labelWidth">
         <el-input v-model="variable.price" autocomplete="off" />
       </el-form-item>
-      <el-form-item label="库存" :label-width="labelWidth">
+      <el-form-item label="数量" :label-width="labelWidth">
         <el-input v-model="variable.stock" autocomplete="off" />
       </el-form-item>
       <el-form-item label="分类" :label-width="labelWidth">
@@ -159,7 +159,6 @@
   update()
 
   const variable = reactive({
-    bookId: '',
     bookName: '',
     author: '',
     publish: '',
@@ -172,7 +171,6 @@
   const editId = ref('')
   const editWindow = (index: number) => {
     editId.value = reactiveBooks.data[index].bookId
-    variable.bookId = reactiveBooks.data[index].bookId
     variable.bookName = reactiveBooks.data[index].bookName
     variable.author = reactiveBooks.data[index].author
     variable.publish = reactiveBooks.data[index].publish
@@ -183,7 +181,6 @@
   }
   const editBook = () => {
     updateBook(Number(editId.value),
-      Number(variable.bookId), 
       variable.bookName,
       variable.author,
       variable.publish,
@@ -203,7 +200,6 @@
 
   const add = ref(false)
   const addWindow = () => {
-    variable.bookId = ''
     variable.bookName = ''
     variable.author = ''
     variable.publish = ''
@@ -213,8 +209,7 @@
     add.value = true
   }
   const addNewBook = () => {
-    addBook(Number(variable.bookId), 
-      variable.bookName,
+    addBook(variable.bookName,
       variable.author,
       variable.publish,
       Number(variable.price),
