@@ -16,14 +16,14 @@
         <el-table-column prop="address" label="居住地址" width="140" />
         <el-table-column prop="phone" label="联系方式" width="90" />
         <el-table-column prop="id" label="身份证号" width="90" />
-        <!-- <el-table-column fixed="right" label="操作" width="180">
+        <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
             <el-button line size="small" :icon="Edit" @click.prevent="editWindow(scope.$index)"
               >编辑</el-button>
             <el-button line size="small" :icon="Delete" @click.prevent="removeWindow(scope.$index)"
               >删除</el-button>
           </template>
-        </el-table-column> -->
+        </el-table-column>
       </el-table>
 
     </el-tab-pane>
@@ -40,11 +40,66 @@
 
     </el-tab-pane>
   </el-tabs>
+
+  <el-dialog v-model="edit" title="修改书籍信息" style="text-align: center;" draggable>
+    <el-form :model="variable">
+      <el-form-item label="学号" :label-width="labelWidth">
+        <el-input v-model="variable.userNumber" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="姓名" :label-width="labelWidth">
+        <el-input v-model="variable.name" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="年龄" :label-width="labelWidth">
+        <el-input v-model="variable.age" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="性别" :label-width="labelWidth">
+        <el-input v-model="variable.sex" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="居住地址" :label-width="labelWidth">
+        <el-input v-model="variable.address" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="联系方式" :label-width="labelWidth">
+        <el-input v-model="variable.phone" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="身份证号" :label-width="labelWidth">
+        <el-input v-model="variable.id" autocomplete="off" />
+      </el-form-item>
+      
+      <span class="dialog-footer">
+        <el-button @click="edit = false">取消</el-button>
+        <el-button type="primary" @click="editUser">
+          确定
+        </el-button>
+      </span>
+    
+    </el-form>
+  </el-dialog>
+
+  <el-dialog
+    v-model="remove"
+    title="提示"
+    width="30%"
+    draggable
+  >
+    <span>确定删除该用户的全部信息？</span>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="remove = false">取消</el-button>
+        <el-button type="primary" @click="removeUser">
+          确定
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
   
 <script setup lang="ts">
   import { ref, reactive } from 'vue';
   import { getUser } from '@/api/reader';
+  import { Delete,Edit, } from '@element-plus/icons-vue'
+  import { deleteUser,updateUser } from '@/api/reader'
+  import { ElMessage } from 'element-plus'
+
 
   let users = [{
     userNumber: '',
@@ -67,6 +122,63 @@
   }
 
   update()
+
+  const variable = ref({
+    userNumber: '',
+    name: '',
+    age: '',
+    sex: '',
+    address: '',
+    phone: '',
+    id: ''
+  })
+  const labelWidth = '140px'
+  const edit = ref(false)
+  const editId = ref('')
+  const editWindow = (index: number) => {
+    editId.value = reactiveUsers.data[index].userNumber
+    variable.value.userNumber = reactiveUsers.data[index].userNumber
+    variable.value.name = reactiveUsers.data[index].name
+    variable.value.age = reactiveUsers.data[index].age
+    variable.value.sex = reactiveUsers.data[index].sex
+    variable.value.address = reactiveUsers.data[index].address
+    variable.value.phone = reactiveUsers.data[index].phone
+    variable.value.id = reactiveUsers.data[index].id
+    edit.value = true
+  }
+  const editUser = () => {
+    updateUser(
+      variable.value.userNumber,
+      variable.value.name,
+      Number(variable.value.age),
+      variable.value.sex,
+      variable.value.address,
+      variable.value.phone,
+    ).then(res => {
+      update()
+      ElMessage('修改成功')
+    }).catch(err => {
+      ElMessage('修改失败')
+    })
+    edit.value = false
+  }
+
+
+  const remove = ref(false)
+  const removeId = ref('')
+  const removeWindow = (index: number) => {
+    removeId.value = reactiveUsers.data[index].userNumber
+    remove.value = true
+  }
+  const removeUser = () => {
+    deleteUser(removeId.value).then(res => {
+      update()
+      ElMessage('删除成功')
+    }).catch(err => {
+      ElMessage('删除失败')
+    })
+    remove.value = false
+  }
   
 </script>
   

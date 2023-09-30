@@ -108,13 +108,10 @@
 </template>
   
 <script setup lang="ts">
-  import { ref,reactive, onMounted } from "vue";
+  import { ref,reactive } from "vue";
   import { addBook,deleteBook,updateBook,getBook } from '@/api/book'
   import { ElMessage } from 'element-plus'
-  import {
-    Delete,
-    Edit,
-  } from '@element-plus/icons-vue'
+  import { Delete,Edit, } from '@element-plus/icons-vue'
 
   let books = [{
     bookId: '',
@@ -179,7 +176,8 @@
       variable.publish,
       Number(variable.price),
       Number(variable.stock),
-      variable.category).then(res => {
+      variable.category
+    ).then(res => {
       console.log(res)
       update()
       ElMessage('修改成功')
@@ -221,20 +219,16 @@
 
 
   const remove = ref(false)
-  const removeIndex = ref(-1)
   const removeId = ref('')
   const removeWindow = (index: number) => {
     removeId.value = reactiveBooks.data[index].bookId
-    removeIndex.value = index
     remove.value = true
   }
   const removeBook = () => {
     deleteBook(Number(removeId.value)).then(res => {
-      console.log(res)
       update()
       ElMessage('删除成功')
     }).catch(err => {
-      console.log(err)
       ElMessage('删除失败')
     })
     // reactiveBooks.data.splice(removeIndex.value, 1)
