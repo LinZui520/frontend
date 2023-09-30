@@ -115,8 +115,7 @@
   
 <script setup lang="ts">
   import { ref,reactive, onMounted } from "vue";
-  import { getBook } from '@/api/account'
-  import { deleteBook,updateBook,addBook } from '@/api/admin'
+  import { addBook,deleteBook,updateBook,getBook } from '@/api/book'
   import { ElMessage } from 'element-plus'
   import {
     Delete,

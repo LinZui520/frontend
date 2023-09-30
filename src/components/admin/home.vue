@@ -24,7 +24,8 @@
 <script setup lang="ts">
   import { ChatLineRound } from '@element-plus/icons-vue'
   import { ref } from 'vue'
-  import { getBookNum,getUserNum } from '@/api/admin'
+  import { getBookNum } from '@/api/book'
+  import { getUserNum } from '@/api/reader';
 
 
   const userNum = ref(0)

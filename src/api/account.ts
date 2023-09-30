@@ -10,18 +10,3 @@ export const accountLogin = (username: string, password: string, power: string) 
         power,
     },
 })
-
-//查看图书
-export const bookCheck = (bookId: number) => request({
-    url: '/book/check',
-    method: 'get',
-    params: {
-        bookId,
-    },
-})
-
-//查看图书列表
-export const getBook = () => request({
-    url: '/book/get',
-    method: 'get',
-})

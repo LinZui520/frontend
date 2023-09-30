@@ -1,28 +1,13 @@
 import request from "@/utils/request";
 
-//查看读者信息
-export const readerCheck = (readerId: string) => request({
-    url: '/reader/check',
+//获取用户信息
+export const getUser = () => request({
+    url: '/user/get',
     method: 'get',
-    params: {
-        readerId,
-    },
 })
 
-//查看个人借阅记录
-export const getBorrow = (readerId: string) => request({
-    url: '/reader/borrow/get',
+//获取用户的总数量
+export const getUserNum = () => request({
+    url: '/user/sum',
     method: 'get',
-    params: {
-        readerId,
-    }
-})
-
-//查看个人预约记录
-export const getReserve = (readerId: string) => request({
-    url: '/reader/reserve/get',
-    method: 'get',
-    params: {
-        readerId,
-    }
 })
