@@ -22,12 +22,11 @@ const router = createRouter({
       meta: { 
         requiresAuth: true 
       },
-      
       component: () => import('@/views/admin.vue'),
       children : [
         {
-          path: "home",
-          component: () => import('@/components/admin/home.vue')
+          path: "summary",
+          component: () => import('@/components/admin/summary.vue')
         },
         {
           path: "account",
@@ -38,8 +37,8 @@ const router = createRouter({
           component: () => import('@/components/admin/book.vue')
         },
         {
-          path: "borrow",
-          component: () => import('@/components/admin/borrow.vue')
+          path: "approval",
+          component: () => import('@/components/admin/approval.vue')
         }
       ],
     },
@@ -49,7 +48,25 @@ const router = createRouter({
       meta: { 
         requiresAuth: true 
       },
-      component: () => import('@/views/reader.vue')
+      component: () => import('@/views/reader.vue'),
+      children : [
+        {
+          path: "home",
+          component: () => import('@/components/reader/home.vue')
+        },
+        {
+          path: "adminlist",
+          component: () => import('@/components/reader/adminlist.vue')
+        },
+        {
+          path: "borrow",
+          component: () => import('@/components/reader/borrow.vue')
+        },
+        {
+          path: "booking",
+          component: () => import('@/components/reader/booking.vue')
+        }
+      ],
     },
     {
       path: "/404",

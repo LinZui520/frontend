@@ -8,9 +8,9 @@
           default-active="1"
           class="el-menu-vertical-demo"
         >
-          <el-menu-item index="1" @click="router.push('/' + accountStore.username + '/home')">
+          <el-menu-item index="1" @click="router.push('/' + accountStore.username + '/summary')">
             <el-icon><House /></el-icon>
-            <span>主页</span>
+            <span>摘要</span>
           </el-menu-item>
           <el-menu-item index="2" @click="router.push('/' + accountStore.username + '/account')">
             <el-icon><User /></el-icon>
@@ -20,7 +20,7 @@
             <el-icon><Reading /></el-icon>
             <span>图书管理</span>
           </el-menu-item>
-          <el-menu-item index="4" @click="router.push('/' + accountStore.username + '/borrow')">
+          <el-menu-item index="4" @click="router.push('/' + accountStore.username + '/approval')">
             <el-icon><Notebook /></el-icon>
             <span>图书借阅</span>
           </el-menu-item>
@@ -43,7 +43,7 @@
 
   const accountStore = useAccountStore()
   const router = useRouter();
-  router.push('/' + accountStore.username + '/home')
+  router.push('/' + accountStore.username + '/summary')
 
 </script>
 
