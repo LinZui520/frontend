@@ -28,9 +28,6 @@
 
   <el-dialog v-model="edit" title="修改书籍信息" style="text-align: center;" draggable>
     <el-form :model="variable">
-      <!-- <el-form-item label="书籍编号" :label-width="labelWidth">
-        <el-input v-model="variable.bookId" autocomplete="off" />
-      </el-form-item> -->
       <el-form-item label="书籍名称" :label-width="labelWidth">
         <el-input v-model="variable.bookName" autocomplete="off" />
       </el-form-item>
@@ -62,9 +59,6 @@
 
   <el-dialog v-model="add" title="添加书籍信息" style="text-align: center;" draggable>
     <el-form :model="variable">
-      <!-- <el-form-item label="书籍编号" :label-width="labelWidth">
-        <el-input v-model="variable.bookId" autocomplete="off" />
-      </el-form-item> -->
       <el-form-item label="书籍名称" :label-width="labelWidth">
         <el-input v-model="variable.bookName" autocomplete="off" />
       </el-form-item>

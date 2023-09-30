@@ -15,7 +15,6 @@
         <el-table-column prop="sex" label="性别" width="90" />
         <el-table-column prop="address" label="居住地址" width="140" />
         <el-table-column prop="phone" label="联系方式" width="90" />
-        <el-table-column prop="userName" label="用户名" width="90" />
         <el-table-column prop="id" label="身份证号" width="90" />
         <!-- <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
@@ -54,7 +53,6 @@
     sex: '',
     address: '',
     phone: '',
-    userName: '',
     id: ''
   }]
   let reactiveUsers = reactive({data: users})
