@@ -102,6 +102,7 @@
   const repaidWindow = (index: number) => {
     repaidId.value = reactiveBorrows.data[index].borrowId
     repaidIndex.value = index
+    repaidNum.value = 1
     repaid.value = true
   }
 
@@ -118,7 +119,6 @@
     }).catch(err => {
       ElMessage.error('网络原因,归还失败')
     })
-    repaidNum.value = 0
     repaid.value = false
   }
   
