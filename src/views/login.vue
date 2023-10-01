@@ -29,7 +29,7 @@
   <el-dialog v-model="registered" title="账户注册" style="text-align: center;" draggable>
     <el-form :model="account">
       <el-form-item label="学号" :label-width="labelWidth">
-        <el-input v-model="account.id" autocomplete="off" />
+        <el-input type="number" v-model="account.id" autocomplete="off" />
       </el-form-item>
       <el-form-item label="账户昵称" :label-width="labelWidth">
         <el-input v-model="account.username" autocomplete="off" />
@@ -68,7 +68,10 @@
   
   
   const login = () => {
-
+    if (username.value == '' || password.value == '') {
+      ElMessage.error('请填写完整信息')
+      return 
+    }
     accountLogin(
       username.value, 
       password.value,
@@ -78,16 +81,17 @@
         accountStore.username = username.value;
         accountStore.userType = userType.value;
         accountStore.isLogin = true;
+        ElMessage.success('登陆成功')
         if (userType.value == 'reader') {
           router.push({ name: "reader", params: { username: username.value } });
         } else {
           router.push({ name: "admin", params: { username: username.value } });
         }
       } else {
-        ElMessage('账户或密码错误')
+        ElMessage.error('账户或密码错误')
       }
     }).catch(err => {
-      ElMessage('网络原因,登陆失败')
+      ElMessage.error('网络原因,登陆失败')
     })
   }
 
@@ -109,20 +113,24 @@
   }
 
   const registerUser = () => {
+    if (account.id == '' || account.username == '' || account.password == '' || account.passwordCheck == '') {
+      ElMessage.error('请填写完整信息')
+      return 
+    }
     registered.value = false
     if (account.password != account.passwordCheck) {
-      ElMessage('两次密码不一致')
+      ElMessage.error('两次密码不一致')
       return 
     }
     accountRegister(account.id, account.username, account.password).then(res => {
       if (res.data == 'ok') {
-        ElMessage('注册成功')
+        ElMessage.success('注册成功')
       }
       else {
-        ElMessage('注册失败,该学号已注册')
+        ElMessage.error('注册失败,该学号已注册')
       }
     }).catch(err => {
-      ElMessage('网络原因,注册失败')
+      ElMessage.error('网络原因,注册失败')
     })
   }
 </script>

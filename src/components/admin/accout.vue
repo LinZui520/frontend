@@ -74,7 +74,7 @@
         <el-input v-model="variable.address" autocomplete="off" />
       </el-form-item>
       <el-form-item label="联系方式" :label-width="labelWidth">
-        <el-input v-model="variable.phone" autocomplete="off" />
+        <el-input type="number" v-model="variable.phone" autocomplete="off" />
       </el-form-item>
       
       <span class="dialog-footer">
