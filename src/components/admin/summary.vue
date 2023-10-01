@@ -5,7 +5,7 @@
     </el-col>
 
     <el-col :span="8" class="item">
-      <el-statistic title="书籍总数" :value="bookNum" />
+      <el-statistic title="图书总数" :value="bookNum" />
     </el-col>
 
     <el-col :span="8" class="item">

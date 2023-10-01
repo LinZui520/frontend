@@ -1,7 +1,7 @@
 <template>
   <div class="box">
-    <span class="item">查询书籍：</span>
-    <el-input v-model="input" placeholder="请输入书籍名称" class="item" />
+    <span class="item">查询图书：</span>
+    <el-input v-model="input" placeholder="请输入图书名称" class="item" />
     <el-button type="primary" @click="searchBook" class="item">
       确定
     </el-button>
@@ -9,8 +9,8 @@
   </div>
   
   <el-table :data="reactiveBooks.data" style="width: 100%">
-    <el-table-column prop="bookId" label="书籍编号" width="90" />
-    <el-table-column prop="bookName" label="书籍名称" width="90" />
+    <el-table-column prop="bookId" label="图书编号" width="90" />
+    <el-table-column prop="bookName" label="图书名称" width="90" />
     <el-table-column prop="author" label="作者" width="90" />
     <el-table-column prop="publish" label="出版社" width="180" />
     <el-table-column prop="price" label="价格" width="90" />
@@ -26,9 +26,9 @@
     </el-table-column>
   </el-table>
 
-  <el-dialog v-model="edit" title="修改书籍信息" style="text-align: center;" draggable>
+  <el-dialog v-model="edit" title="修改图书信息" style="text-align: center;" draggable>
     <el-form :model="variable">
-      <el-form-item label="书籍名称" :label-width="labelWidth">
+      <el-form-item label="图书名称" :label-width="labelWidth">
         <el-input v-model="variable.bookName" autocomplete="off" />
       </el-form-item>
       <el-form-item label="作者" :label-width="labelWidth">
@@ -57,9 +57,9 @@
     </el-form>
   </el-dialog>
 
-  <el-dialog v-model="add" title="添加书籍信息" style="text-align: center;" draggable>
+  <el-dialog v-model="add" title="添加图书信息" style="text-align: center;" draggable>
     <el-form :model="variable">
-      <el-form-item label="书籍名称" :label-width="labelWidth">
+      <el-form-item label="图书名称" :label-width="labelWidth">
         <el-input v-model="variable.bookName" autocomplete="off" />
       </el-form-item>
       <el-form-item label="作者" :label-width="labelWidth">
@@ -95,7 +95,7 @@
     width="30%"
     draggable
   >
-    <span>确定删除该书籍的全部信息？</span>
+    <span>确定删除该图书的全部信息？</span>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="remove = false">取消</el-button>

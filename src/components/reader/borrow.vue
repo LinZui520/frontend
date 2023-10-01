@@ -1,15 +1,15 @@
 <template>
   <div class="box">
-    <span class="item">查询书籍：</span>
-    <el-input v-model="input" placeholder="请输入书籍名称" class="item" />
+    <span class="item">查询图书：</span>
+    <el-input v-model="input" placeholder="请输入图书名称" class="item" />
     <el-button type="primary" @click="searchBook" class="item">
       确定
     </el-button>
   </div>
   
   <el-table :data="reactiveBooks.data" style="width: 100%">
-    <el-table-column prop="bookId" label="书籍编号" width="90" />
-    <el-table-column prop="bookName" label="书籍名称" width="90" />
+    <el-table-column prop="bookId" label="图书编号" width="90" />
+    <el-table-column prop="bookName" label="图书名称" width="90" />
     <el-table-column prop="author" label="作者" width="90" />
     <el-table-column prop="publish" label="出版社" width="180" />
     <el-table-column prop="price" label="价格" width="90" />
@@ -24,7 +24,7 @@
     </el-table-column>
   </el-table>
 
-  <el-dialog v-model="borrow" title="借阅书籍" style="text-align: center;width: 300px;" draggable>
+  <el-dialog v-model="borrow" title="借阅图书" style="text-align: center;width: 300px;" draggable>
     <el-form :model="variable">
       <el-form-item label="借阅数量" :label-width="labelWidth">
         <el-input type="number" v-model="variable.borrowNum" autocomplete="off" style="width: 180px;"/>
