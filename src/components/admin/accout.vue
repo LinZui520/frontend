@@ -185,7 +185,7 @@
       update()
       ElMessage.success('修改成功')
     }).catch(err => {
-      ElMessage.error('修改失败')
+      ElMessage.error('网络原因,修改失败')
     })
     edit.value = false
   }
@@ -202,7 +202,7 @@
       update()
       ElMessage.success('删除成功')
     }).catch(err => {
-      ElMessage.error('删除失败')
+      ElMessage.error('网络原因,删除失败')
     })
     remove.value = false
   }

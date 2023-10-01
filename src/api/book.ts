@@ -64,3 +64,18 @@ export const borrowBook = (username: string, bookID: number, num: number, days: 
         days,
     },
 })
+
+//查看借阅
+export const getBorrow = () => request({
+    url: '/book/borrow/get',
+    method: 'get',
+})
+
+//归还书籍
+export const returnBook = (borrowId: string ) => request({
+    url: '/book/borrow/return',
+    method: 'post',
+    data: {
+        borrowId
+    },
+})
