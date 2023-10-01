@@ -133,7 +133,6 @@
       }
       return item.bookName.indexOf(input.value) != -1
     }))
-    // input.value = ''
   }
 
   const update = async () => {
@@ -190,7 +189,7 @@
       ElMessage.success('修改成功')
     }).catch(err => {
       console.log(err)
-      ElMessage.error('修改失败')
+      ElMessage.error('网络原因,修改失败')
     })
     edit.value = false
   }
@@ -225,7 +224,7 @@
       ElMessage.success('添加成功')
     }).catch(err => {
       console.log(err)
-      ElMessage.error('添加失败')
+      ElMessage.error('网络原因,添加失败')
     })
     add.value = false
   }
@@ -243,9 +242,8 @@
       update()
       ElMessage.success('删除成功')
     }).catch(err => {
-      ElMessage.error('删除失败')
+      ElMessage.error('网络原因,删除失败')
     })
-    // reactiveBooks.data.splice(removeIndex.value, 1)
     remove.value = false
   }
   
@@ -253,15 +251,7 @@
 </script>
     
 <style scoped>
-/* .el-button--text {
-  margin-right: 15px;
-}
-.el-select {
-  width: 300px;
-}
-.el-input {
-  width: 300px;
-} */
+
 .box {
   display: flex;
   margin-top: 30px;

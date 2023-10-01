@@ -27,5 +27,3 @@ export default defineConfig({
   },
     
 })
-
-//192.168.201.169:5000

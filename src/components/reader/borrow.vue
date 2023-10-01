@@ -120,7 +120,7 @@
         ElMessage.error('借阅失败,库存不足')
       }
     }).catch(err => {
-      ElMessage.error('借阅失败')
+      ElMessage.error('网络原因,借阅失败')
     })
     variable.borrowNum = ''
     variable.borrowDays = ''
