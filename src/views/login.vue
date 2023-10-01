@@ -77,7 +77,8 @@
       password.value,
       userType.value
     ).then(res => {
-      if (res.data == 'ok') {
+      if (res.data != 'err') {
+        accountStore.userNumber = res.data
         accountStore.username = username.value;
         accountStore.userType = userType.value;
         accountStore.isLogin = true;

@@ -54,12 +54,12 @@ export const getBookNum = () => request({
 
 
 //借阅书籍
-export const borrowBook = (username: string, bookID: number, num: number, days: number) => request({
+export const borrowBook = (bookID: number, userNumber: number, num: number, days: number) => request({
     url: '/book/borrow',
     method: 'post',
     data: {
         bookID,
-        username,
+        userNumber,
         num,
         days,
     },
@@ -77,5 +77,18 @@ export const returnBook = (borrowId: string ) => request({
     method: 'post',
     data: {
         borrowId
+    },
+})
+
+//预约书籍 
+export const reservationBook = (userNumber: number, bookID: number,
+        bookingDate: string, bookingNum: number) => request({
+    url: '/book/booking',
+    method: 'post',
+    data: {
+        userNumber,
+        bookID,
+        bookingDate,
+        bookingNum,
     },
 })

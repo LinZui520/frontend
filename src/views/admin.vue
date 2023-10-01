@@ -22,7 +22,7 @@
           </el-menu-item>
           <el-menu-item index="4" @click="router.push('/' + accountStore.username + '/approval')">
             <el-icon><Notebook /></el-icon>
-            <span>图书借阅</span>
+            <span>借阅管理</span>
           </el-menu-item>
         </el-menu>
       </el-col>

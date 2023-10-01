@@ -20,6 +20,9 @@
         <el-button line size="small" :icon="Check" @click.prevent="borrowWindow(scope.$index)"
           >借阅
         </el-button>
+        <el-button line size="small" :icon="Calendar" @click.prevent="bookingWindow(scope.$index)"
+          >预约
+        </el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -42,14 +45,42 @@
     
     </el-form>
   </el-dialog>
+
+  <el-dialog v-model="booking" title="预约图书" style="text-align: center;width: 300px;" draggable>
+    <el-form >
+      <el-form-item label="预约数量" :label-width="labelWidth">
+        <el-input type="number" v-model="bookingNum" autocomplete="off" style="width: 180px;"/>
+      </el-form-item>
+      <el-form-item label="预约时间" :label-width="labelWidth">
+        <div class="block" >
+          <el-date-picker 
+            v-model="bookingDate"
+            type="date"
+            placeholder="选择一个日期"
+            :size="size"
+            style="width: 180px;"
+          />
+        </div>
+      </el-form-item>
+      
+      <span class="dialog-footer">
+        <el-button @click="booking = false">取消</el-button>
+        <el-button type="primary" @click="bookingBook">
+          确定
+        </el-button>
+      </span>
+    
+    </el-form>
+  </el-dialog>
 </template>
   
 <script setup lang="ts">
   import { reactive,ref } from 'vue'
-  import { getBook,borrowBook } from '@/api/book'
-  import { Check } from '@element-plus/icons-vue'
+  import { getBook,borrowBook,reservationBook } from '@/api/book'
+  import { Check,Calendar } from '@element-plus/icons-vue'
   import { ElMessage } from 'element-plus'
   import useAccountStore from '@/store/modules/account';
+import { da } from 'element-plus/es/locale/index.mjs';
   const accountStore = useAccountStore();
   let books = [{
     bookId: '',
@@ -101,14 +132,17 @@
   })
   const borrowWindow = (index: number) => {
     borrowId.value = reactiveBooks.data[index].bookId
+    variable.borrowNum = ''
+    variable.borrowDays = ''
     borrow.value = true
   }
   const borrowBooks = () => {
-    if (variable.borrowNum == '' || variable.borrowDays == '') {
-      ElMessage.error('请填写借阅数量和借阅天数')
+    if (variable.borrowNum == '' || variable.borrowDays == '' ||
+        Number(variable.borrowNum) <= 0 || Number(variable.borrowDays) <= 0) {
+      ElMessage.error('请填写正确的数据')
       return
     }
-    borrowBook(accountStore.username, 
+    borrowBook(Number(accountStore.userNumber), 
       Number(borrowId.value), 
       Number(variable.borrowNum), 
       Number(variable.borrowDays)
@@ -122,11 +156,50 @@
     }).catch(err => {
       ElMessage.error('网络原因,借阅失败')
     })
-    variable.borrowNum = ''
-    variable.borrowDays = ''
     borrow.value = false
   }
-  
+
+  const formatDate = (date: Date) => [
+    date.getFullYear(),
+    (date.getMonth() + 1).toString().padStart(2, '0'),
+    (date.getDate()).toString().padStart(2, '0'),
+  ].join('-')
+
+  const size = 'default'
+  const booking = ref(false)
+  const bookingNum = ref(1)
+  const bookingDate = ref<Date>()
+  const bookingId = ref(0)
+  const bookingIndex = ref(0)
+  const bookingWindow = (index: number) => {
+    bookingNum.value = 1
+    bookingId.value = Number(reactiveBooks.data[index].bookId)
+    bookingIndex.value = index
+    booking.value = true
+  }
+  const bookingBook = () => {
+    if (bookingNum.value.toString() == '' || bookingNum.value <= 0 ||
+        typeof bookingDate.value === "undefined" || 
+        bookingDate.value == null) {
+      ElMessage.error('请填写正确的数据')
+      return
+    }
+    reservationBook(Number(accountStore.userNumber), 
+      bookingId.value, 
+      formatDate(bookingDate.value),
+      bookingNum.value
+    ).then(res => {
+      if (res.data == 'ok'){
+        ElMessage.success('预约成功')
+        update()
+      } else {
+        ElMessage.error('预约失败,库存不足')
+      }
+    }).catch(err => {
+      ElMessage.error('网络原因,预约失败')
+    })
+    booking.value = false
+  }
 </script>
   
 <style scoped>
