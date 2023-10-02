@@ -38,6 +38,20 @@
         </span>
       </template>
 
+      <el-table :data="reservationBook.data" style="width: 100%">
+        <el-table-column prop="reservationId" label="预约单号" width="90" />
+        <el-table-column prop="userNumber" label="学号" width="90" />
+        <el-table-column prop="bookId" label="图书编号" width="90" />
+        <el-table-column prop="orderDate" label="订单时间" width="90" />
+        <el-table-column prop="reservationDate" label="预约时间" width="90" />
+        <el-table-column prop="reservationNum" label="预约数量" width="90" />
+        <el-table-column fixed="right" label="操作" width="180">
+          <template #default="scope">
+            <el-button line size="small" :icon="Close" @click.prevent="cancelReservationWindow(scope.$index)"
+              >删除预约</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
       
     </el-tab-pane>
   </el-tabs>
@@ -64,14 +78,32 @@
     
     </el-form>
   </el-dialog>
+
+  <el-dialog
+    v-model="cancelReservation"
+    title="提示"
+    width="30%"
+    draggable
+  >
+    <span>确定删除该预约？</span>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="cancelReservation = false">取消</el-button>
+        <el-button type="primary" @click="cancelReservationBook">
+          确定
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
   
 <script setup lang="ts">
   import { reactive,ref } from 'vue'
-  import { getBorrow } from '@/api/book'
+  import { getBorrow,getReservation,cancelBooking } from '@/api/book'
   import { Check } from '@element-plus/icons-vue'
   import { returnBook } from '@/api/book'
   import { ElMessage } from 'element-plus'
+  import { Close } from '@element-plus/icons-vue'
 
   const reactiveBorrows = reactive({data: [{
     borrowId: '',
@@ -83,10 +115,20 @@
     bookId: '',
     sum: ''
   }]})
+  const reservationBook = reactive({data: [{
+    reservationId: '',
+    userNumber: '',
+    bookId: '',
+    orderDate: '',
+    reservationDate: '',
+    reservationNum : '',
+  }]})
+
 
   const update = async () => {
     try {
       reactiveBorrows.data = (await getBorrow()).data
+      reservationBook.data = (await getReservation()).data
     } catch(err) {
       console.log(err)
     }
@@ -121,6 +163,24 @@
     })
     repaid.value = false
   }
+
+  const cancelReservation = ref(false)
+  const cancelReservationId = ref('')
+  const cancelReservationWindow = (index: number) => {
+    cancelReservationId.value = reservationBook.data[index].reservationId
+    cancelReservation.value = true
+  }
+
+  const cancelReservationBook = () => {
+    cancelBooking(Number(cancelReservationId.value)).then(res => {
+      ElMessage.success('删除预约成功')
+      update()
+    }).catch(err => {
+      ElMessage.error('网络原因,删除预约失败')
+    })
+    cancelReservation.value = false
+  }
+  
   
 </script>
   
