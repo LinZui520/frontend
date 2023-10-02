@@ -1,5 +1,5 @@
 <template>
-    <p>welcome</p>
+    <p style="text-align: center;">welcome</p>
 </template>
   
 <script setup lang="ts">

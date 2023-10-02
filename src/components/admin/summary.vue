@@ -24,13 +24,13 @@
 <script setup lang="ts">
   import { ChatLineRound } from '@element-plus/icons-vue'
   import { ref } from 'vue'
-  import { getBookNum } from '@/api/book'
+  import { getBookNum,getReservationNum } from '@/api/book'
   import { getUserNum } from '@/api/reader';
 
 
   const userNum = ref(0)
   const bookNum = ref(0)
-  const reservationNum = ref(520)
+  const reservationNum = ref(0)
 
   getUserNum().then(res => {
     userNum.value = res.data
@@ -40,6 +40,12 @@
 
   getBookNum().then(res => {
     bookNum.value = res.data
+  }).catch(err => {
+    console.log(err)
+  })
+
+  getReservationNum().then(res => {
+    reservationNum.value = res.data
   }).catch(err => {
     console.log(err)
   })

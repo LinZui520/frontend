@@ -125,3 +125,9 @@ export const cancelBooking = (reservationId: number) => request({
         reservationId,
     },
 })
+
+//获取预约总数量
+export const getReservationNum = () => request({
+    url: '/book/booking/sum',
+    method: 'get',
+})
