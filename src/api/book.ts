@@ -103,6 +103,25 @@ export const getUserBorrow = (userNumber: number) => request({
 })
 
 //查看预约列表
-
+export const getReservation = () => request({
+    url: '/book/booking/get',
+    method: 'post',
+})
 
 //查看个人预约
+export const getUserReservation = (userNumber: number) => request({
+    url: '/book/booking/user',
+    method: 'post',
+    data: {
+        userNumber,
+    },
+})
+
+//取消预约
+export const cancelBooking = (reservationId: number) => request({
+    url: '/book/booking/cancel',
+    method: 'post',
+    data: {
+        reservationId,
+    },
+})

@@ -80,7 +80,7 @@
   import { Check,Calendar } from '@element-plus/icons-vue'
   import { ElMessage } from 'element-plus'
   import useAccountStore from '@/store/modules/account';
-import { da } from 'element-plus/es/locale/index.mjs';
+
   const accountStore = useAccountStore();
   let books = [{
     bookId: '',
@@ -110,7 +110,6 @@ import { da } from 'element-plus/es/locale/index.mjs';
       }
       return item.bookName.indexOf(input.value) != -1
     }))
-    // input.value = ''
   }
   const update = async () => {
     try {

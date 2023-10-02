@@ -14,12 +14,12 @@
         <el-table-column prop="borrowDate" label="借阅日期" width="90" />
         <el-table-column prop="price" label="图书价格" width="90" />
         <el-table-column prop="days" label="借阅天数" width="90" />
-        <el-table-column prop="status" label="借阅状态" width="140" />
+        <el-table-column prop="status" label="借阅状态" width="90" />
         <el-table-column prop="bookId" label="图书编号" width="90" />
         <el-table-column prop="sum" label="借阅数量" width="90" />
         <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
-            <el-button line size="small" :icon="Check" @click.prevent="repaidWindow(scope.$index)"
+            <el-button line size="small" :icon="Close" @click.prevent="repaidWindow(scope.$index)"
               >归还图书</el-button>
           </template>
         </el-table-column>
@@ -35,7 +35,20 @@
         </span>
       </template>
 
-      
+      <el-table :data="reservationBook.data" style="width: 100%">
+        <el-table-column prop="reservationId" label="预约单号" width="90" />
+        <el-table-column prop="userNumber" label="学号" width="90" />
+        <el-table-column prop="bookId" label="图书编号" width="90" />
+        <el-table-column prop="orderDate" label="订单时间" width="90" />
+        <el-table-column prop="reservationDate" label="预约时间" width="90" />
+        <el-table-column prop="reservationNum" label="预约数量" width="90" />
+        <el-table-column fixed="right" label="操作" width="180">
+          <template #default="scope">
+            <el-button line size="small" :icon="Close" @click.prevent="cancelReservationWindow(scope.$index)"
+              >取消预约</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
 
     </el-tab-pane>
   </el-tabs>
@@ -61,12 +74,30 @@
     
     </el-form>
   </el-dialog>
+
+  <el-dialog
+    v-model="cancelReservation"
+    title="提示"
+    width="30%"
+    draggable
+  >
+    <span>确定取消该预约？</span>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="cancelReservation = false">取消</el-button>
+        <el-button type="primary" @click="cancelReservationBook">
+          确定
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+
 </template>
   
 <script setup lang="ts">
   import { reactive,ref } from 'vue';
-  import { getUserBorrow,returnBook } from '@/api/book'
-  import { Check } from '@element-plus/icons-vue'
+  import { getUserBorrow,returnBook,getUserReservation,cancelBooking } from '@/api/book'
+  import { Close } from '@element-plus/icons-vue'
   import useAccountStore from '@/store/modules/account';
   import { ElMessage } from 'element-plus'
 
@@ -83,9 +114,19 @@
     sum: ''
   }]})
 
+  const reservationBook = reactive({data: [{
+    reservationId: '',
+    userNumber: '',
+    bookId: '',
+    orderDate: '',
+    reservationDate: '',
+    reservationNum : '',
+  }]})
+
   const update = async () => {
     try {
       reactiveBorrows.data = (await getUserBorrow(Number(accountStore.userNumber))).data
+      reservationBook.data = (await getUserReservation(Number(accountStore.userNumber))).data
     } catch(err) {
       console.log(err)
     }
@@ -122,8 +163,27 @@
   }
 
   
+  const cancelReservation = ref(false)
+  const cancelReservationId = ref('')
+  const cancelReservationWindow = (index: number) => {
+    cancelReservationId.value = reservationBook.data[index].reservationId
+    cancelReservation.value = true
+  }
+
+  const cancelReservationBook = () => {
+    cancelBooking(Number(cancelReservationId.value)).then(res => {
+      ElMessage.success('取消预约成功')
+      update()
+    }).catch(err => {
+      ElMessage.error('网络原因,取消预约失败')
+    })
+    cancelReservation.value = false
+  }
+  
 </script>
   
 <style scoped>
-  
+.dialog-footer button:first-child {
+  margin-right: 10px;
+} 
 </style>
