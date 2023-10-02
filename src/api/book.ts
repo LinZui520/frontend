@@ -65,7 +65,7 @@ export const borrowBook = (bookID: number, userNumber: number, num: number, days
     },
 })
 
-//查看借阅
+//查看借阅列表
 export const getBorrow = () => request({
     url: '/book/borrow/get',
     method: 'get',
@@ -92,3 +92,17 @@ export const reservationBook = (userNumber: number, bookID: number,
         bookingNum,
     },
 })
+
+//查看个人借阅
+export const getUserBorrow = (userNumber: number) => request({
+    url: '/book/borrow/user',
+    method: 'post',
+    data: {
+        userNumber,
+    },
+})
+
+//查看预约列表
+
+
+//查看个人预约

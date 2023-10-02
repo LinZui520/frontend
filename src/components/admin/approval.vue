@@ -43,7 +43,7 @@
   </el-tabs>
     
 
-<el-dialog
+  <el-dialog
     v-model="repaid"
     title="提示"
     width="30%"
