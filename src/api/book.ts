@@ -72,11 +72,12 @@ export const getBorrow = () => request({
 })
 
 //归还书籍
-export const returnBook = (borrowId: string ) => request({
+export const returnBook = (borrowId: string ,borrowNum: number) => request({
     url: '/book/borrow/return',
     method: 'post',
     data: {
-        borrowId
+        borrowId,
+        borrowNum,
     },
 })
 

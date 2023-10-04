@@ -60,7 +60,7 @@
     draggable
     style="text-align: center;"
   >
-    <el-form :model="repaidNum">
+    <el-form>
       <el-form-item label="归还书籍数量" :label-width="labelWidth">
         <el-input type="number" v-model="repaidNum" autocomplete="off" />
       </el-form-item>
@@ -153,7 +153,7 @@
       ElMessage.error('请填写正确的归还数量')
       return
     }
-    returnBook(repaidId.value).then(res => {
+    returnBook(repaidId.value, repaidNum.value).then(res => {
       ElMessage.success('归还成功')
       update()
     }).catch(err => {
