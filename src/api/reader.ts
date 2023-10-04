@@ -37,3 +37,12 @@ export const updateUser = (userNumber: string, name: string,
         phone,
     }
 })
+
+//获取个人信息
+export const getReaderInfo = (userNumber: number) => request({
+    url: '/user/info',
+    method: 'post',
+    data: {
+        userNumber
+    }
+})

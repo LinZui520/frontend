@@ -58,9 +58,6 @@
 
   <el-dialog v-model="edit" title="修改用户信息" style="text-align: center;" draggable>
     <el-form :model="variable">
-      <el-form-item label="学号" :label-width="labelWidth">
-        <el-input type="number" v-model="variable.userNumber" autocomplete="off" />
-      </el-form-item>
       <el-form-item label="姓名" :label-width="labelWidth">
         <el-input v-model="variable.name" autocomplete="off" />
       </el-form-item>
