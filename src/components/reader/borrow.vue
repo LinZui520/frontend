@@ -141,8 +141,8 @@
       ElMessage.error('请填写正确的数据')
       return
     }
-    borrowBook(Number(accountStore.userNumber), 
-      Number(borrowId.value), 
+    borrowBook(Number(borrowId.value), 
+      Number(accountStore.userNumber), 
       Number(variable.borrowNum), 
       Number(variable.borrowDays)
     ).then(res => {

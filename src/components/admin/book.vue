@@ -184,7 +184,6 @@
       Number(variable.stock),
       variable.category
     ).then(res => {
-      console.log(res)
       update()
       ElMessage.success('修改成功')
     }).catch(err => {
@@ -219,7 +218,6 @@
       Number(variable.price),
       Number(variable.stock),
       variable.category).then(res => {
-      console.log(res)
       update()
       ElMessage.success('添加成功')
     }).catch(err => {
