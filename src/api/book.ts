@@ -82,13 +82,13 @@ export const returnBook = (borrowId: string ,borrowNum: number) => request({
 })
 
 //预约书籍 
-export const reservationBook = (userNumber: number, bookID: number,
+export const reservationBook = (userNumber: number, bookId: number,
         bookingDate: string, bookingNum: number) => request({
     url: '/book/booking',
     method: 'post',
     data: {
         userNumber,
-        bookID,
+        bookId,
         bookingDate,
         bookingNum,
     },
