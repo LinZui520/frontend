@@ -194,6 +194,10 @@
       ElMessage.error('请填写正确的性别')
       return
     }
+    if (variable.value.id.length != 18) {
+      ElMessage.error('请填写正确的身份证号')
+      return
+    }
     updateUser(
       variable.value.userNumber,
       variable.value.name,
