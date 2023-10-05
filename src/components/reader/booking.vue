@@ -19,7 +19,7 @@
         <el-table-column prop="sum" label="借阅数量" width="90" />
         <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
-            <el-button line size="small" :icon="Close" @click.prevent="repaidWindow(scope.$index)"
+            <el-button line size="small" :icon="Close" @click.prevent="repaidWindow(scope.$index)" disabled
               >归还图书</el-button>
           </template>
         </el-table-column>
