@@ -154,13 +154,14 @@
   const update = async () => {
     try {
       info.data = (await getReaderInfo(Number(accountStore.userNumber))).data
-      if (info.data.userNumber == '' || info.data.username == '' || info.data.age == '' || 
-        info.data.sex == '' || info.data.address == '' || 
-        info.data.phone == '' || info.data.id == '') {
+      if (info.data.userNumber == null || info.data.username == null || info.data.age == null || 
+        info.data.sex == null || info.data.address == null || 
+        info.data.phone == null || info.data.id == null) {
           accountStore.isInfoComplete = false
       } else {
         accountStore.isInfoComplete = true
       }
+      console.log(info.data)
     } catch(err) {
       console.log(err)
     }
