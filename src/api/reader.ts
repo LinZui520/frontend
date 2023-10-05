@@ -24,7 +24,7 @@ export const deleteUser = (userNumber: string) => request({
 //修改用户信息
 export const updateUser = (userNumber: string, name: string,
         age: number, sex: string,
-        address: string, phone: string) => request({
+        address: string, phone: string, id: string) => request({
 
     url: '/user/update',
     method: 'post',
@@ -35,6 +35,7 @@ export const updateUser = (userNumber: string, name: string,
         sex,
         address,
         phone,
+        id
     }
 })
 

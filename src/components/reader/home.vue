@@ -116,6 +116,9 @@
       <el-form-item label="联系方式" :label-width="labelWidth">
         <el-input type="number" v-model="variable.phone" autocomplete="off" />
       </el-form-item>
+      <el-form-item label="身份证号" :label-width="labelWidth">
+        <el-input type="number" v-model="variable.id" autocomplete="off" />
+      </el-form-item>
       
       <span class="dialog-footer">
         <el-button @click="edit = false">取消</el-button>
@@ -187,6 +190,10 @@
       ElMessage.error('请填写完整信息')
       return
     }
+    if (variable.value.sex != '男' && variable.value.sex != '女') {
+      ElMessage.error('请填写正确的性别')
+      return
+    }
     updateUser(
       variable.value.userNumber,
       variable.value.name,
@@ -194,6 +201,7 @@
       variable.value.sex,
       variable.value.address,
       variable.value.phone,
+      variable.value.id
     ).then(res => {
       update()
       ElMessage.success('修改成功')

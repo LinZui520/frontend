@@ -171,6 +171,10 @@
       ElMessage.error('请填写完整信息')
       return
     }
+    if (variable.value.sex != '男' && variable.value.sex != '女') {
+      ElMessage.error('请填写正确的性别')
+      return
+    }
     updateUser(
       variable.value.userNumber,
       variable.value.name,
@@ -178,6 +182,7 @@
       variable.value.sex,
       variable.value.address,
       variable.value.phone,
+      variable.value.id
     ).then(res => {
       update()
       ElMessage.success('修改成功')
