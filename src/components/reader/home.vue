@@ -158,10 +158,8 @@
         info.data.sex == '' || info.data.address == '' || 
         info.data.phone == '' || info.data.id == '') {
           accountStore.isInfoComplete = false
-          console.log(accountStore.isInfoComplete)
       } else {
         accountStore.isInfoComplete = true
-        console.log(accountStore.isInfoComplete)
       }
     } catch(err) {
       console.log(err)
