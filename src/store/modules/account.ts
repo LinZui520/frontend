@@ -6,6 +6,7 @@ const useAccountStore = defineStore("account", {
         username: '',
         userType: '',
         isLogin: false,
+        isInfoComplete: false,
     }),
 
     getters: {
