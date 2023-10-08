@@ -32,24 +32,17 @@
   const bookNum = ref(0)
   const reservationNum = ref(0)
 
-  getUserNum().then(res => {
-    userNum.value = res.data
-  }).catch(err => {
-    console.log(err)
-  })
+  const update = async () => {
+    try {
+      userNum.value = (await getUserNum()).data
+      bookNum.value = (await getBookNum()).data
+      reservationNum.value = (await getReservationNum()).data
+    } catch(err) {
+      console.log(err)
+    }
+  }
 
-  getBookNum().then(res => {
-    bookNum.value = res.data
-  }).catch(err => {
-    console.log(err)
-  })
-
-  getReservationNum().then(res => {
-    reservationNum.value = res.data
-  }).catch(err => {
-    console.log(err)
-  })
-
+  update()
 
 </script>
   
