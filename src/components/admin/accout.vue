@@ -14,8 +14,8 @@
         <el-table-column prop="age" label="年龄" width="60" />
         <el-table-column prop="sex" label="性别" width="60" />
         <el-table-column prop="address" label="居住地址" width="160" />
-        <el-table-column prop="phone" label="联系方式" width="110" />
-        <el-table-column prop="id" label="身份证号" width="160" />
+        <el-table-column prop="phone" label="联系方式" width="140" />
+        <el-table-column prop="id" label="身份证号" width="180" />
         <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
             <el-button line size="small" :icon="Edit" @click.prevent="editWindow(scope.$index)"
@@ -37,12 +37,12 @@
       </template>
 
       <el-table :data="admins.data" style="width: 100%">
-        <el-table-column prop="adminNumber" label="工号" width="90" />
-        <el-table-column prop="name" label="姓名" width="90" />
-        <el-table-column prop="age" label="年龄" width="90" />
-        <el-table-column prop="sex" label="性别" width="90" />
-        <el-table-column prop="phone" label="联系方式" width="90" />
-        <el-table-column prop="id" label="身份证号" width="90" />
+        <el-table-column prop="adminNumber" label="工号" width="80" />
+        <el-table-column prop="name" label="姓名" width="80" />
+        <el-table-column prop="age" label="年龄" width="80" />
+        <el-table-column prop="sex" label="性别" width="80" />
+        <el-table-column prop="phone" label="联系方式" width="140" />
+        <el-table-column prop="id" label="身份证号" width="180" />
         <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
             <el-button line size="small" :icon="Edit" disabled

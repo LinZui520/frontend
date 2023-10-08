@@ -54,7 +54,8 @@
           性别
         </div>
       </template>
-      <el-tag size="small">{{ info.data.sex }}</el-tag>
+      <el-tag size="small" v-if="info.data.sex">{{ info.data.sex }}</el-tag>
+      <div v-else>{{ info.data.sex }}</div>
     </el-descriptions-item>
 
     <el-descriptions-item>
