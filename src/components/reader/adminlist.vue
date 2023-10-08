@@ -4,8 +4,8 @@
     <el-table-column prop="name" label="姓名" width="90" />
     <el-table-column prop="age" label="年龄" width="90" />
     <el-table-column prop="sex" label="性别" width="90" />
-    <el-table-column prop="phone" label="联系方式" width="90" />
-    <el-table-column prop="id" label="身份证号" width="90" />
+    <el-table-column prop="phone" label="联系方式" width="120" />
+    <el-table-column prop="id" label="身份证号" width="180" />
   </el-table> 
 
 </template>

@@ -9,14 +9,14 @@
       </template>
 
       <el-table :data="reactiveBorrows.data" style="width: 100%">
-        <el-table-column prop="borrowId" label="借阅编号" width="90" />
-        <el-table-column prop="userNumber" label="学号" width="90" />
-        <el-table-column prop="borrowDate" label="借阅日期" width="90" />
-        <el-table-column prop="price" label="图书价格" width="90" />
-        <el-table-column prop="days" label="借阅天数" width="90" />
-        <el-table-column prop="status" label="借阅状态" width="90" />
-        <el-table-column prop="bookId" label="图书编号" width="90" />
-        <el-table-column prop="sum" label="借阅数量" width="90" />
+        <el-table-column prop="borrowId" label="借阅编号" width="80" />
+        <el-table-column prop="userNumber" label="学号" width="80" />
+        <el-table-column prop="borrowDate" label="借阅日期" width="140" />
+        <el-table-column prop="price" label="图书价格" width="80" />
+        <el-table-column prop="days" label="借阅天数" width="80" />
+        <el-table-column prop="status" label="借阅状态" width="80" />
+        <el-table-column prop="bookId" label="图书编号" width="80" />
+        <el-table-column prop="sum" label="借阅数量" width="80" />
         <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
             <el-button line size="small" :icon="Close" @click.prevent="repaidWindow(scope.$index)" disabled
@@ -36,12 +36,12 @@
       </template>
 
       <el-table :data="reservationBook.data" style="width: 100%">
-        <el-table-column prop="reservationId" label="预约单号" width="90" />
-        <el-table-column prop="userNumber" label="学号" width="90" />
-        <el-table-column prop="bookId" label="图书编号" width="90" />
-        <el-table-column prop="orderDate" label="订单时间" width="90" />
-        <el-table-column prop="reservationDate" label="预约时间" width="90" />
-        <el-table-column prop="reservationNum" label="预约数量" width="90" />
+        <el-table-column prop="reservationId" label="预约单号" width="80" />
+        <el-table-column prop="userNumber" label="学号" width="80" />
+        <el-table-column prop="bookId" label="图书编号" width="80" />
+        <el-table-column prop="orderDate" label="订单时间" width="140" />
+        <el-table-column prop="reservationDate" label="预约时间" width="140" />
+        <el-table-column prop="reservationNum" label="预约数量" width="80" />
         <el-table-column fixed="right" label="操作" width="180">
           <template #default="scope">
             <el-button line size="small" :icon="Close" @click.prevent="cancelReservationWindow(scope.$index)"
